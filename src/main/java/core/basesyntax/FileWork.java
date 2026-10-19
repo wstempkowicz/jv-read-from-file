@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class FileWork {
     public String[] readFromFile(String fileName) {
-        File file = new File("test4");
+        File file = new File("test2");
         StringBuilder builder = new StringBuilder("");
         // try-with-resources: Scanner will be closed automatically
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -20,21 +20,22 @@ public class FileWork {
         } catch (IOException e) {
             throw new RuntimeException("Can't read from file.", e);
         }
-        String[] words = builder.toString().toLowerCase().split("\\s+");
-        Arrays.sort(words);
-        StringBuilder result = new StringBuilder();
+        String[] words = builder.toString().toLowerCase().split("[\\.\\s+]");
+        StringBuilder result = new StringBuilder("");
         int i = 0;
         for (String word : words) {
             if (word.indexOf("w") == 0) {
                 if (i == 0) {
                     result.append(word);
+                    i++;
                     continue;
                 }
                 result.append(" ");
                 result.append(word);
             }
         }
-        String[] wordsWithW = result.toString().split("\\s+");
+        String[] wordsWithW = result.toString().split("[\\s+]");
+        Arrays.sort(wordsWithW);
         return wordsWithW;
     }
 }
